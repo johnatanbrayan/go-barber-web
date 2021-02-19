@@ -30,6 +30,7 @@
     "import/prefer-default-export": "off",
     "no-use-before-define": "off",
     "no-unused-expressions": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "camelcase": "off",
     "import/extensions": [
