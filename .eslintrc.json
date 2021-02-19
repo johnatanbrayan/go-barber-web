@@ -29,6 +29,7 @@
     "react/jsx-filename-extension": [0],
     "import/prefer-default-export": "off",
     "no-use-before-define": "off",
+    "no-unused-expressions": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "camelcase": "off",
     "import/extensions": [
