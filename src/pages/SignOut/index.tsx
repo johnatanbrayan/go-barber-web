@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FiChevronLeft, FiUser, FiKey, FiMail } from 'react-icons/fi';
 import { Form } from '@unform/web';
+import * as Yup from 'yup';
 import { Container, Content, Background } from './style';
 import logo from '../../assets/logo.svg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 const SignOut: React.FC = () => {
-  function handleSubmit(data: unknown): void {
-    console.log(data);
-  }
+  const handleSubmit = useCallback(async (data: unknown) => {
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Name is required'),
+        email: Yup.string()
+          .required('Email is required')
+          .email('Enter a valid email address'),
+        password: Yup.string().min(6, 'At least 6 digits'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   return (
     <Container>
