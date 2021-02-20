@@ -28,8 +28,8 @@ const SignOut: React.FC = () => {
         abortEarly: false,
       });
     } catch (err) {
-      const erros = getValidationErrors(err);
-      formRef.current?.setErrors(erros);
+      const errors = getValidationErrors(err);
+      formRef.current?.setErrors(errors);
     }
   }, []);
 
