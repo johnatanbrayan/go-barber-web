@@ -14,6 +14,7 @@ export const Container = styled.div<ContainerProps>`
   padding: 0 16px;
   width: 100%;
   color: #666360;
+  transition: border-color 0.5s, color 0.5s;
 
   display: flex;
   align-items: center;

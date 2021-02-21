@@ -2,12 +2,13 @@ import React, { useCallback, useRef } from 'react';
 import { FiChevronLeft, FiUser, FiKey, FiMail } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import getValidationErrors from '../../utils/getValidationErrors';
 import { Container, Content, Background } from './style';
 import logo from '../../assets/logo.svg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import getValidationErrors from '../../utils/getValidationErrors';
 
 const SignOut: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -52,10 +53,10 @@ const SignOut: React.FC = () => {
           <Button type="submit">Register</Button>
         </Form>
 
-        <a href="/">
+        <Link to="/">
           <FiChevronLeft />
           Back to Login
-        </a>
+        </Link>
       </Content>
     </Container>
   );
