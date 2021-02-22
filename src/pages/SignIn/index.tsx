@@ -10,29 +10,43 @@ import Input from '../../components/Input';
 import { Background, Container, Content } from './style';
 
 import logo from '../../assets/logo.svg';
+import { useToast } from '../../hooks/toast';
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { addToast } = useToast();
 
-  const handleSubmit = useCallback(async (data: unknown) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: unknown) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('Email is required')
-          .email('Enter a valid email adress'),
-        password: Yup.string().required('Password is required'),
-      });
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('Email is required')
+            .email('Enter a valid email adress'),
+          password: Yup.string().required('Password is required'),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      const errors = getValidationErrors(err);
-      formRef.current?.setErrors(errors);
-    }
-  }, []);
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+        }
+
+        addToast({
+          type: 'error',
+          title: 'Error on Authentication',
+          description:
+            'An error occurred while signing in, check how credentials',
+        });
+      }
+    },
+    [addToast],
+  );
 
   return (
     <>

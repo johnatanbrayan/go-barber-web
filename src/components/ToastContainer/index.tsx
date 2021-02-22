@@ -1,44 +1,33 @@
 import React from 'react';
 import { FiAlertCircle, FiXCircle } from 'react-icons/fi';
+import { ToastMessage, useToast } from '../../hooks/toast';
 import { Container, Toast } from './style';
 
-const ToastContainer: React.FC = () => {
+interface ToastContainerProps {
+  messages: ToastMessage[];
+}
+
+const ToastContainer: React.FC<ToastContainerProps> = ({ messages }) => {
+  const { removeToast } = useToast();
   return (
     <Container>
-      <Toast type="info" hasDescription>
-        <FiAlertCircle size={20} />
-        <div>
-          <strong>Toast for Informations</strong>
-          <p>This ballon is to inform you</p>
-        </div>
+      {messages.map((message) => (
+        <Toast
+          key={message.id}
+          type={message.type}
+          hasDescription={!!message.description}
+        >
+          <FiAlertCircle size={20} />
+          <div>
+            <strong>{message.title}</strong>
+            {message.description && <p>{message.description}</p>}
+          </div>
 
-        <button type="button">
-          <FiXCircle size={16} />
-        </button>
-      </Toast>
-
-      <Toast type="success" hasDescription={false}>
-        <FiAlertCircle size={20} />
-        <div>
-          <strong>Success !!!</strong>
-        </div>
-
-        <button type="button">
-          <FiXCircle size={16} />
-        </button>
-      </Toast>
-
-      <Toast type="error" hasDescription>
-        <FiAlertCircle size={20} />
-        <div>
-          <strong>An unexpected error has occurred</strong>
-          <p>Login has the wrong data</p>
-        </div>
-
-        <button type="button">
-          <FiXCircle size={16} />
-        </button>
-      </Toast>
+          <button onClick={() => removeToast(message.id)} type="button">
+            <FiXCircle size={16} />
+          </button>
+        </Toast>
+      ))}
     </Container>
   );
 };
